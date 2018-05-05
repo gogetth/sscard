@@ -3,8 +3,8 @@ package main
 
 import (
 	"fmt"
- 	"os"
-
+	"os"
+	 
 	"github.com/ebfe/scard"
 	"apduthaiidcard"
 )
@@ -49,84 +49,28 @@ func main() {
 	}
 	fmt.Println("resp apduthaiidcard.ApduThaiIdCardSelect: ", rsp)	
 
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardCid1, apduthaiidcard.ApduThaiIdCardCid2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameEn1, apduthaiidcard.ApduThaiIdCardFullnameEn2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameTh1, apduthaiidcard.ApduThaiIdCardFullnameTh2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardBirth1, apduthaiidcard.ApduThaiIdCardBirth2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardGender1, apduthaiidcard.ApduThaiIdCardGender2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuer1, apduthaiidcard.ApduThaiIdCardIssuer2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuedate1, apduthaiidcard.ApduThaiIdCardIssuedate2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardExpiredate1, apduthaiidcard.ApduThaiIdCardExpiredate2)
-	cardTxAPDU(card, apduthaiidcard.ApduThaiIdCardAddress1, apduthaiidcard.ApduThaiIdCardAddress2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardCid1, apduthaiidcard.ApduThaiIdCardCid2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameEn1, apduthaiidcard.ApduThaiIdCardFullnameEn2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameTh1, apduthaiidcard.ApduThaiIdCardFullnameTh2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardBirth1, apduthaiidcard.ApduThaiIdCardBirth2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardGender1, apduthaiidcard.ApduThaiIdCardGender2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuer1, apduthaiidcard.ApduThaiIdCardIssuer2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuedate1, apduthaiidcard.ApduThaiIdCardIssuedate2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardExpiredate1, apduthaiidcard.ApduThaiIdCardExpiredate2)
+	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardAddress1, apduthaiidcard.ApduThaiIdCardAddress2)
 
-	cardPhoto(card)
-}
-
-func cardTxAPDU(card *scard.Card, apducmd1 []byte, apducmd2 []byte){		
-	// Send command APDU: apducmd1
-	rsp, err := card.Transmit(apducmd1)
+	cardPhotoJpg, err := apduthaiidcard.CardPhoto(card)
 	if err != nil {
-		fmt.Println("Error Transmit:", err)
+		fmt.Println("Error:", err)
 		return
 	}
-	fmt.Println("resp1: ", rsp)
-	for i := 0; i < len(rsp)-2; i++ {
-		fmt.Printf("%c", rsp[i])
-	}
-	fmt.Println() 
+	fmt.Printf("Image binary: % 2X\n", cardPhotoJpg)
 
-	// Send command APDU: apducmd2
-	rsp, err = card.Transmit(apducmd2)
-	if err != nil {
-		fmt.Println("Error Transmit:", err)
-		return
-	}
-	fmt.Println("resp2: ", rsp)
-	for i := 0; i < len(rsp)-2; i++ {
-		fmt.Printf("%c", rsp[i])
-	}
-	fmt.Println() 
-}
-
-func cardPhoto(card *scard.Card){
-	var cardimg = []byte{}
-	apducmd2 := apduthaiidcard.ApduThaiIdCardPhotoGetResp
-	for _ , apducmd1 := range apduthaiidcard.ApduThaiIdCardPhoto {
-		fmt.Println(apducmd1)
-		fmt.Println(apducmd2)
-
-		// Send command APDU: apducmd1
-		rsp, err := card.Transmit(apducmd1)
-		if err != nil {
-			fmt.Println("Error Transmit:", err)
-			return
-		}
-		fmt.Println("resp1: ", rsp)
-		for i := 0; i < len(rsp)-2; i++ {
-			fmt.Printf("%c", rsp[i])
-		}
-		fmt.Println() 
-
-		// Send command APDU: apducmd2
-		rsp, err = card.Transmit(apducmd2)
-		if err != nil {
-			fmt.Println("Error Transmit:", err)
-			return
-		}
-		fmt.Println("resp2: ", rsp)
-		for i := 0; i < len(rsp)-2; i++ {			
-			cardimg = append(cardimg, rsp[i])			
-		}		 
-	}
-	fmt.Println("Card image ")
-	fmt.Printf("% 2X\n", cardimg)
-
-
-	////////////////////
+	// write jpeg to file
 	f, err := os.Create("./dat2.jpg")
     check(err)
 
-	n2, err := f.Write(cardimg)
+	n2, err := f.Write(cardPhotoJpg)
 	check(err)
 	fmt.Printf("wrote %d bytes\n", n2)
 }
@@ -136,3 +80,4 @@ func check(e error) {
         panic(e)
     }
 }
+
