@@ -3,10 +3,9 @@ package main
 
 import (
 	"fmt"
-	"os"
-	 
+
 	"github.com/ebfe/scard"
-	"apduthaiidcard"
+	"github.com/Napat/thaiidcard_pcscapdu/apduthaiidcard"
 )
 
 func main() {
@@ -49,15 +48,68 @@ func main() {
 	}
 	fmt.Println("resp apduthaiidcard.ApduThaiIdCardSelect: ", rsp)	
 
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardCid1, apduthaiidcard.ApduThaiIdCardCid2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameEn1, apduthaiidcard.ApduThaiIdCardFullnameEn2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameTh1, apduthaiidcard.ApduThaiIdCardFullnameTh2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardBirth1, apduthaiidcard.ApduThaiIdCardBirth2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardGender1, apduthaiidcard.ApduThaiIdCardGender2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuer1, apduthaiidcard.ApduThaiIdCardIssuer2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuedate1, apduthaiidcard.ApduThaiIdCardIssuedate2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardExpiredate1, apduthaiidcard.ApduThaiIdCardExpiredate2)
-	apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardAddress1, apduthaiidcard.ApduThaiIdCardAddress2)
+	cid, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardCid1, apduthaiidcard.ApduThaiIdCardCid2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("cid: %s\n", string(cid))
+
+	fullnameEN, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameEn1, apduthaiidcard.ApduThaiIdCardFullnameEn2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("fullnameEN: %s\n", string(fullnameEN))
+
+	fullnameTH, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardFullnameTh1, apduthaiidcard.ApduThaiIdCardFullnameTh2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("fullnameTH: %s\n", string(fullnameTH))
+
+	birth, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardBirth1, apduthaiidcard.ApduThaiIdCardBirth2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("birth: %s\n", string(birth))
+
+	gender, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardGender1, apduthaiidcard.ApduThaiIdCardGender2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("gender: %s\n", string(gender))
+
+	issuer, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuer1, apduthaiidcard.ApduThaiIdCardIssuer2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("issuer: %s\n", string(issuer))
+
+	issueDate, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardIssuedate1, apduthaiidcard.ApduThaiIdCardIssuedate2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("issueDate: %s\n", string(issueDate))
+
+	issueExp, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardExpiredate1, apduthaiidcard.ApduThaiIdCardExpiredate2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("issueExp: %s\n", string(issueExp))
+
+	address, err := apduthaiidcard.CardTxAPDU(card, apduthaiidcard.ApduThaiIdCardAddress1, apduthaiidcard.ApduThaiIdCardAddress2)
+	if err != nil {
+		fmt.Println("Error CardTxAPDU: ", err)
+		return 
+	}
+	fmt.Printf("address: %s\n", string(address))
 
 	cardPhotoJpg, err := apduthaiidcard.CardPhoto(card)
 	if err != nil {
@@ -66,18 +118,13 @@ func main() {
 	}
 	fmt.Printf("Image binary: % 2X\n", cardPhotoJpg)
 
-	// write jpeg to file
-	f, err := os.Create("./dat2.jpg")
-    check(err)
-
-	n2, err := f.Write(cardPhotoJpg)
-	check(err)
+	n2, err := apduthaiidcard.WritePhotoToFile(cardPhotoJpg, "./dat2.jpg")
 	fmt.Printf("wrote %d bytes\n", n2)
 }
 
-func check(e error) {
-    if e != nil {
-        panic(e)
-    }
+func printbytes(rsp []byte) {
+	for i := 0; i < len(rsp)-2; i++ {
+		fmt.Printf("%c", rsp[i])
+	}
+	fmt.Println()
 }
-
