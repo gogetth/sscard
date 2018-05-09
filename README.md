@@ -1,6 +1,6 @@
-# Golang example to get information from Thai ID Card
+# Super Smart Card(sscard)
 
-Read data from Thai ID smart card.
+Super Smart Card API on top of pcsc.
 
 ## TODO
 
@@ -9,10 +9,13 @@ Read data from Thai ID smart card.
 sudo apt-get install pcscd
 
 # goget
-go get github.com/Napat/thaiidcard_pcscapdu/apduthaiidcard
+go get github.com/Napat/sscard/sscard
 
-# go run example
-go run github.com/Napat/thaiidcard_pcscapdu/main/main.go
+# go build
+go build github.com/Napat/sscard/main
+
+# Run on windows
+./main.exe
 ```
 
 ## Platforms
