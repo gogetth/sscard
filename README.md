@@ -12,11 +12,14 @@ sudo apt-get install pcscd
 go get github.com/Napat/sscard/sscard
 
 # go build
-go build github.com/Napat/sscard/main
+go build -o readcard github.com/Napat/sscard/main
 
 # Run on windows
 ./main.exe
 ```
+
+# go run hack
+go run $(find ./ | grep ./main/)
 
 ## Platforms
 
