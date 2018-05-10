@@ -7,7 +7,7 @@ import (
 	"github.com/ebfe/scard"
 )
 
-// ExampleThaiIDCard ...
+// exampleThaiIDCard ...
 func exampleThaiIDCard() {
 
 	// Establish a PC/SC context
@@ -114,12 +114,16 @@ func exampleThaiIDCard() {
 
 	cardPhotoJpg, err := sscard.APDUGetBlockRsp(card, sscard.APDUThaiIDCardPhoto, sscard.APDUThaiIDCardPhotoRsp)
 	if err != nil {
-		fmt.Println("Error:", err)
+		fmt.Println("Error: ", err)
 		return
 	}
 	fmt.Printf("Image binary: % 2X\n", cardPhotoJpg)
 
 	n2, err := sscard.WriteBlockToFile(cardPhotoJpg, "./idcPhoto.jpg")
+	if err != nil {
+		fmt.Println("Error WriteBlockToFile: ", err)
+		return
+	}
 	fmt.Printf("wrote %d bytes\n", n2)
 }
 

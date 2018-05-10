@@ -7,8 +7,7 @@ import (
 	"github.com/ebfe/scard"
 )
 
-// ExampleSimCard ...
-
+// exampleSimCard ...
 func exampleSimCard() {
 	// Establish a PC/SC context
 	context, err := scard.EstablishContext()

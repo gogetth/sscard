@@ -30,8 +30,8 @@ func DecodeIMSI(ef []byte) []byte {
 	if len(ef) < 4 {
 		return nil
 	}
-	// lenght := ef[0]
-	// fmt.Println(lenght)
+	// length := ef[0]
+	// fmt.Println(length)
 	swapHex(ef)
 	return ef
 }
@@ -41,8 +41,8 @@ func EncodeICCID(iccid []byte) []byte {
 	if len(iccid) < 4 {
 		return nil
 	}
-	lenght := iccid[0]
-	fmt.Println(lenght)
+	length := iccid[0]
+	fmt.Println(length)
 	swapHex(iccid)
 	return iccid
 }
@@ -61,8 +61,8 @@ func LuhnStringValid(luhnString string) bool {
 }
 
 // LuhnByteValid returns a boolean indicating if the argument was valid according to the Luhn algorithm.
-func LuhnByteValid(luhnByte []byte, lenght int) bool {
-	checksumMod := CalculateChecksumByte(luhnByte, false, lenght) % 10
+func LuhnByteValid(luhnByte []byte, length int) bool {
+	checksumMod := CalculateChecksumByte(luhnByte, false, length) % 10
 	fmt.Println("checksumMod :", checksumMod)
 	return checksumMod == 0
 }
@@ -89,13 +89,13 @@ func generateControlDigit(luhnString string) int {
 // CalculateChecksumByte ...
 // For calculate to find checksum digit  must not include checksum digit
 // For Validate -> include checksumdigit if sum % 10 = 0 ->> Valid
-func CalculateChecksumByte(luhnByte []byte, double bool, lenght int) int {
+func CalculateChecksumByte(luhnByte []byte, double bool, length int) int {
 	luhnString := []rune(hex.EncodeToString(luhnByte))
-	if lenght > len(luhnString) {
-		fmt.Errorf("Invalid Len")
+	if length > len(luhnString) {
+		_ = fmt.Errorf("Invalid Len")
 		return -1
 	}
-	source := luhnString[:lenght]
+	source := luhnString[:length]
 	// source := luhnString
 	return CalculateChecksum(string(source), double)
 }
