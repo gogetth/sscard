@@ -1,6 +1,6 @@
 package main
 
 func main() {
-	// exampleThaiIDCard()
-	exampleSimCard()
+	 exampleThaiIDCard()
+	//exampleSimCard()
 }

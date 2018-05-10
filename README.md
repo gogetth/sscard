@@ -9,14 +9,15 @@ Super Smart Card API on top of pcsc.
 sudo apt-get install pcscd
 
 # goget
-go get github.com/Napat/sscard/sscard
+go get -u github.com/Napat/sscard/sscard
 
 # go build
-go build -o readcard github.com/Napat/sscard/main
+go build -o sscard github.com/Napat/sscard/main
 
-# Run on windows
-./main.exe
+./sscard  # ./sscard.exe on windows
 ```
+
+About requirement and other platform see: `docs/INSTALLATION_xxx.md`
 
 # go run hack
 go run $(find ./ | grep ./main/)
