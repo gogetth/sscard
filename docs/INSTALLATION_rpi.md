@@ -67,7 +67,7 @@ export PATH=$PATH:/usr/local/go/bin
 
 $ sudo nano ~/.bash_profile
 export GOBIN="$HOME/workspace/go/bin"
-export GOPATH="$HOME/workspace/go/src"
+export GOPATH="$HOME/workspace/go"
 export GOROOT="/usr/local/go"
 ^C
 
@@ -85,7 +85,12 @@ func main() {
 
 $ go install $GOPATH/src/helloworld/helloworld.go
 $ $GOBIN/helloworld
-
+Hello world
+$
+$ go get github.com/golang/example/hello
+$ go build github.com/golang/example/hello
+$ $GOBIN/hello
+Hello, Go examples!
 ```
 
 ## Install pcsc-lite
