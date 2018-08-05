@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Napat/sscard/sscard"
+	"github.com/Napat/sscard"
 	"github.com/ebfe/scard"
 )
 

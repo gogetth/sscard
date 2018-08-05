@@ -1,6 +1,15 @@
 # Super Smart Card(sscard)
 
-Super Smart Card API on top of pcsc.
+Super Smart Card API on top of scard(pcsc handler) with apdu commands.
+
+## Builtin APDU devices
+
+- Thai ID card (public data)
+- Simcard (public data)
+
+## Installation and requirements
+
+See `docs/INSTALLATION_xxx.md`
 
 ## TODO
 
@@ -9,23 +18,18 @@ Super Smart Card API on top of pcsc.
 sudo apt-get install pcscd
 
 # goget
-go get -u github.com/Napat/sscard/sscard
+go get -u github.com/Napat/sscard
 
-# go build
+# go build example
 go build -o sscard github.com/Napat/sscard/main
 
-./sscard  # ./sscard.exe on windows
+./sscard  # ./main.exe on windows(if no -o sscard)
 ```
-
-About requirement and other platform see: `docs/INSTALLATION_xxx.md`
-
-# go run hack
-go run $(find ./ | grep ./main/)
 
 ## Platforms
 
 - Windows 10
-- Linux / Ubuntu
+- Linux: Ubuntu, Raspbian stretch(RPi3B)
 
 ## References
 
