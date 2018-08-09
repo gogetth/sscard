@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/Napat/sscard"
 	"github.com/ebfe/scard"
+	"github.com/gogetth/sscard"
 )
 
 // exampleThaiIDCard ...
