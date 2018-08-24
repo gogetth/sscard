@@ -42,7 +42,7 @@ func ThIDCardCID(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(cid), cfg), nil
+	return thIDCardMutateString(string(cid), cfg)
 }
 
 //ThIDCardFullnameEn get full name(English) from Thai national ID smart card.
@@ -57,10 +57,10 @@ func ThIDCardFullnameEn(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(fullnameEN), cfg), nil
+	return thIDCardMutateString(string(fullnameEN), cfg)
 }
 
-//ThIDCardFullnameTh get full name(English) from Thai national ID smart card.
+//ThIDCardFullnameTh get full name(Thai) from Thai national ID smart card.
 func ThIDCardFullnameTh(card Transmiter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
@@ -72,7 +72,7 @@ func ThIDCardFullnameTh(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(fullnameTH), cfg), nil
+	return thIDCardMutateString(string(fullnameTH), cfg)
 }
 
 //ThIDCardBirth get birth date from Thai national ID smart card.
@@ -87,7 +87,7 @@ func ThIDCardBirth(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(birth), cfg), nil
+	return thIDCardMutateString(string(birth), cfg)
 }
 
 //ThIDCardGender get gender from Thai national ID smart card.
@@ -102,7 +102,7 @@ func ThIDCardGender(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(gender), cfg), nil
+	return thIDCardMutateString(string(gender), cfg)
 }
 
 //ThIDCardIssuer get issuer from Thai national ID smart card.
@@ -117,7 +117,7 @@ func ThIDCardIssuer(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(issuer), cfg), nil
+	return thIDCardMutateString(string(issuer), cfg)
 }
 
 //ThIDCardIssueDate get issue date from Thai national ID smart card.
@@ -132,7 +132,7 @@ func ThIDCardIssueDate(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(issuer), cfg), nil
+	return thIDCardMutateString(string(issuer), cfg)
 }
 
 //ThIDCardExpireDate get expire date from Thai national ID smart card.
@@ -147,7 +147,7 @@ func ThIDCardExpireDate(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(expire), cfg), nil
+	return thIDCardMutateString(string(expire), cfg)
 }
 
 //ThIDCardAddress get address from Thai national ID smart card.
@@ -162,37 +162,44 @@ func ThIDCardAddress(card Transmiter, opt ...OptThIDCard) (string, error) {
 		return "", err
 	}
 
-	return mutateString(string(address), cfg), nil
+	return thIDCardMutateString(string(address), cfg)
 }
 
-func mutateString(s string, cfg thidcardOpts) string {
+func thIDCardMutateString(s string, cfg thidcardOpts) (str string, err error) {
+	str = s
 	if cfg.tis620ToUtf8 {
-		s = tis620ToUtf8(s)
+		str, err = tis620ToUtf8(str)
+		if err != nil {
+			return str, err
+		}
 	}
 	if cfg.sharpToSpace {
-		s = sharpToSpace(s)
+		str, err = sharpToSpace(str)
+		if err != nil {
+			return str, err
+		}
 	}
-	return s
+	return str, nil
 }
 
-func sharpToSpace(s string) string {
+func sharpToSpace(s string) (string, error) {
 	s = strings.Replace(s, "#", " ", -1)
-	return s
+	return s, nil
 }
 
-func tis620ToUtf8(s string) string {
+func tis620ToUtf8(s string) (string, error) {
 	tis620Reader := bytes.NewBufferString(s)
 
 	reader, err := charset.NewReaderLabel("TIS-620", tis620Reader)
 
 	if err != nil {
-		return ""
+		return "", err
 	}
 
 	b, err := ioutil.ReadAll(reader)
 	if err != nil {
-		return ""
+		return "", err
 	}
 
-	return string(b)
+	return string(b), nil
 }
