@@ -2,7 +2,6 @@ package sscard
 
 import (
 	"fmt"
-	"strings"
 )
 
 // Transmiter is an interface that wrap the command to communicate with smart card via application protocol data unit (APDU) according to ISO/IEC 7816.
@@ -76,60 +75,4 @@ func printRsp(rsp []byte) {
 		fmt.Printf("%c", rsp[i])
 	}
 	fmt.Println()
-}
-
-type config struct {
-	sharpToSpace bool
-	decodeTIS620 bool
-}
-
-// Option provide options for each operation.
-type Option func(*config)
-
-// WithSharpToSpace add option to convert all # to space before return a string
-func WithSharpToSpace() Option {
-	return func(cfg *config) {
-		cfg.sharpToSpace = true
-	}
-}
-
-// WithDecodeTIS620 add option to convert TIS620 string back to UTF-8 before return a string
-func WithDecodeTIS620() Option {
-	return func(cfg *config) {
-		cfg.decodeTIS620 = true
-	}
-}
-
-// GetThaiIDCID get cid from Thai national ID smart card.
-func GetThaiIDCID(card Transmiter, opt ...Option) (string, error) {
-	cfg := config{}
-	for _, o := range opt {
-		o(&cfg)
-	}
-
-	cid, err := APDUGetRsp(card, APDUThaiIDCardCID)
-	if err != nil {
-		return "", err
-	}
-
-	return mutateString(string(cid), cfg), nil
-}
-
-func mutateString(s string, cfg config) string {
-	if cfg.decodeTIS620 {
-		s = decodeTIS620(s)
-	}
-	if cfg.sharpToSpace {
-		s = sharpToSpace(s)
-	}
-	return s
-}
-
-func sharpToSpace(s string) string {
-	s = strings.Replace(s, "#", " ", -1)
-	return s
-}
-
-func decodeTIS620(s string) string {
-	panic("not implement")
 }
