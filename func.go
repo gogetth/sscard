@@ -2,13 +2,16 @@ package sscard
 
 import (
 	"fmt"
-
-	"github.com/ebfe/scard"
 )
+
+// Transmiter is an interface that wrap the command to communicate with smart card via application protocol data unit (APDU) according to ISO/IEC 7816.
+type Transmiter interface {
+	Transmit([]byte) ([]byte, error)
+}
 
 // APDUGetRsp Send list of APDU and get last command response
 // ispadzeroOptional is optional(default = true) to replace adpu tail section
-func APDUGetRsp(card *scard.Card, apducmds [][]byte, ispadzeroOptional ...bool) ([]byte, error) {
+func APDUGetRsp(card Transmiter, apducmds [][]byte, ispadzeroOptional ...bool) ([]byte, error) {
 	var resp []byte
 
 	ispadzero := true
@@ -37,7 +40,7 @@ func APDUGetRsp(card *scard.Card, apducmds [][]byte, ispadzeroOptional ...bool) 
 }
 
 // APDUGetBlockRsp Send list of APDU and append all response
-func APDUGetBlockRsp(scardCard *scard.Card, apducmds [][]byte, apducmdRsp []byte) ([]byte, error) {
+func APDUGetBlockRsp(scardCard Transmiter, apducmds [][]byte, apducmdRsp []byte) ([]byte, error) {
 	var respBlock []byte
 	card := scardCard
 
