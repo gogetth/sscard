@@ -1,3 +1,6 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/gogetth/sscard)](https://goreportcard.com/report/github.com/gogetth/sscard)
+[![GoDoc](https://godoc.org/github.com/gogetth/sscard?status.svg)](https://godoc.org/github.com/gogetth/sscard)
+
 # Super Smart Card(sscard)
 
 Super Smart Card API on top of scard(pcsc handler) with apdu commands.
