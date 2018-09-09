@@ -31,7 +31,7 @@ func OptTis620ToUtf8() OptThIDCard {
 }
 
 //ThIDCardCID get cid from Thai national ID smart card.
-func ThIDCardCID(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardCID(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -46,7 +46,7 @@ func ThIDCardCID(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardFullnameEn get full name(English) from Thai national ID smart card.
-func ThIDCardFullnameEn(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardFullnameEn(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -61,7 +61,7 @@ func ThIDCardFullnameEn(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardFullnameTh get full name(Thai) from Thai national ID smart card.
-func ThIDCardFullnameTh(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardFullnameTh(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -76,7 +76,7 @@ func ThIDCardFullnameTh(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardBirth get birth date from Thai national ID smart card.
-func ThIDCardBirth(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardBirth(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -91,7 +91,7 @@ func ThIDCardBirth(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardGender get gender from Thai national ID smart card.
-func ThIDCardGender(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardGender(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -106,7 +106,7 @@ func ThIDCardGender(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardIssuer get issuer from Thai national ID smart card.
-func ThIDCardIssuer(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardIssuer(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -121,7 +121,7 @@ func ThIDCardIssuer(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardIssueDate get issue date from Thai national ID smart card.
-func ThIDCardIssueDate(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardIssueDate(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -136,7 +136,7 @@ func ThIDCardIssueDate(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardExpireDate get expire date from Thai national ID smart card.
-func ThIDCardExpireDate(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardExpireDate(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
@@ -151,7 +151,7 @@ func ThIDCardExpireDate(card Transmiter, opt ...OptThIDCard) (string, error) {
 }
 
 //ThIDCardAddress get address from Thai national ID smart card.
-func ThIDCardAddress(card Transmiter, opt ...OptThIDCard) (string, error) {
+func ThIDCardAddress(card Transmitter, opt ...OptThIDCard) (string, error) {
 	cfg := thidcardOpts{}
 	for _, o := range opt {
 		o(&cfg)
