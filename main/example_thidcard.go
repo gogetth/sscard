@@ -204,7 +204,7 @@ func exampleThaiIDCard2() {
 	}
 	fmt.Printf("gender: _%s_\n", string(gender))
 
-	issuer, err := sscard.ThIDCardIssuer(card)
+	issuer, err := sscard.ThIDCardIssuer(card, sscard.OptTis620ToUtf8())
 	if err != nil {
 		fmt.Println("Error APDUGetRsp: ", err)
 		return
