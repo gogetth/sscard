@@ -37,10 +37,13 @@ func ThIDCardCID(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	cid, err := APDUGetRsp(card, APDUThaiIDCardCID)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardCID)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	cid := resp
 
 	return thIDCardMutateString(string(cid), cfg)
 }
@@ -52,10 +55,13 @@ func ThIDCardFullnameEn(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	fullnameEN, err := APDUGetRsp(card, APDUThaiIDCardFullnameEn)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardFullnameEn)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	fullnameEN := resp
 
 	return thIDCardMutateString(string(fullnameEN), cfg)
 }
@@ -67,10 +73,13 @@ func ThIDCardFullnameTh(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	fullnameTH, err := APDUGetRsp(card, APDUThaiIDCardFullnameTh)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardFullnameTh)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	fullnameTH := resp
 
 	return thIDCardMutateString(string(fullnameTH), cfg)
 }
@@ -82,10 +91,13 @@ func ThIDCardBirth(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	birth, err := APDUGetRsp(card, APDUThaiIDCardBirth)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardBirth)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	birth := resp
 
 	return thIDCardMutateString(string(birth), cfg)
 }
@@ -97,10 +109,13 @@ func ThIDCardGender(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	gender, err := APDUGetRsp(card, APDUThaiIDCardGender)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardGender)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	gender := resp
 
 	return thIDCardMutateString(string(gender), cfg)
 }
@@ -131,12 +146,15 @@ func ThIDCardIssueDate(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	issuer, err := APDUGetRsp(card, APDUThaiIDCardIssuedate)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardIssuedate)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	issuerDate := resp
 
-	return thIDCardMutateString(string(issuer), cfg)
+	return thIDCardMutateString(string(issuerDate), cfg)
 }
 
 //ThIDCardExpireDate get expire date from Thai national ID smart card.
@@ -146,12 +164,15 @@ func ThIDCardExpireDate(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	expire, err := APDUGetRsp(card, APDUThaiIDCardExpiredate)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardExpiredate)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	expireDate := resp
 
-	return thIDCardMutateString(string(expire), cfg)
+	return thIDCardMutateString(string(expireDate), cfg)
 }
 
 //ThIDCardAddress get address from Thai national ID smart card.
@@ -161,10 +182,13 @@ func ThIDCardAddress(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	address, err := APDUGetRsp(card, APDUThaiIDCardAddress)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardAddress)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	address := resp
 
 	return thIDCardMutateString(string(address), cfg)
 }
