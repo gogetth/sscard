@@ -191,8 +191,14 @@ func rmBackslashBytes(s []byte) []byte {
 	return bytes.Replace(s, []byte("\\"), nil, -1)
 }
 
+// standardizeSpaces change double,redundant spaces(ex. "hello[space][space][space]world") to a space
+func standardizeSpaces(s string) string {
+	return strings.Join(strings.Fields(s), " ")
+}
+
 func sharpToSpace(s string) (string, error) {
 	s = strings.Replace(s, "#", " ", -1)
+	s = standardizeSpaces(s)
 	return s, nil
 }
 
