@@ -112,10 +112,14 @@ func ThIDCardIssuer(card Transmitter, opt ...OptThIDCard) (string, error) {
 		o(&cfg)
 	}
 
-	issuer, err := APDUGetRsp(card, APDUThaiIDCardIssuer)
+	resp, err := APDUGetRsp(card, APDUThaiIDCardIssuer)
+	resp = []byte(strings.Replace(string(resp), " ", "", -1))
+	resp = bytes.Replace(resp, []byte("\000"), nil, -1)
 	if err != nil {
 		return "", err
 	}
+	issuer := resp
+	issuer = rmBackslashBytes(issuer)
 
 	return thIDCardMutateString(string(issuer), cfg)
 }
@@ -180,6 +184,11 @@ func thIDCardMutateString(s string, cfg thidcardOpts) (str string, err error) {
 		}
 	}
 	return str, nil
+}
+
+// rmBackslashBytes remove backslash from []byte
+func rmBackslashBytes(s []byte) []byte {
+	return bytes.Replace(s, []byte("\\"), nil, -1)
 }
 
 func sharpToSpace(s string) (string, error) {
