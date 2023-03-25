@@ -13,15 +13,20 @@ Super Smart Card API on top of scard(pcsc handler) with apdu commands.
 
 ``` bash
 # Linux: install pcsc library
-sudo apt-get install pcscd
+sudo apt-get install pcscd libpcsclite-dev
 
-# goget
+# Get dependencies
+# before 1.13
 go get -u golang.org/x/net/html/charset
 go get -u github.com/gogetth/sscard
+
+# 1.13+
+go mod download
 
 # go build example
 go build -o sscard github.com/gogetth/sscard/main
 
+# Run example program
 ./sscard
 ```
 

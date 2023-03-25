@@ -13,3 +13,9 @@ readcard
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Ignore Go mod vendor
+vendor
+
+# Ignore executable
+sscard
